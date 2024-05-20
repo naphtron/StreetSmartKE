@@ -1,5 +1,5 @@
 ﻿asyncio
-chromadb==0.4.14   
+chromadb
 cohere
 google-generativeai
 langchain
