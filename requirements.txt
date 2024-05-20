@@ -5,4 +5,5 @@ langchain
 langchain-community
 langchain-google-genai
 pillow
+pysqlite3-binary
 streamlit
