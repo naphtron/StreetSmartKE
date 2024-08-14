@@ -67,11 +67,10 @@ You are an expert AI assistant. Answer the following question in detail, providi
 
 Given the above context, provide a detailed and comprehensive answer to the following question: {question}
 
-If the question is unrelated, please respond with: "I'm sorry, but I can only provide information related to road rules and regulations in Kenya. Please ask a relevant question." 
-
 However, if the question is a greeting or casual conversation starter (such as "Hello", "Hi", "Hey", "How are you?", "Good morning", and all the rest), please respond appropriately as a friendly assistant would.
 """
 
+# caveat = If the question is unrelated to road, please respond with: "I'm sorry, but I can only provide information related to road rules and regulations in Kenya. Please ask a relevant question." 
 
 
     if len(results) == 0:
