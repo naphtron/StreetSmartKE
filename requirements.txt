@@ -6,4 +6,4 @@ langchain-community
 langchain-google-genai
 pillow
 pysqlite3-binary
-streamlit
+streamlit==1.39.0
