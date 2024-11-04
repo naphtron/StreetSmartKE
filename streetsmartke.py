@@ -1,4 +1,7 @@
 import cohere
+import faiss
+from langchain_community.docstore.in_memory import InMemoryDocstore
+from langchain_community.vectorstores import FAISS
 import streamlit as st
 import google.generativeai as genai
 from langchain_chroma import Chroma
@@ -34,7 +37,11 @@ llm = genai.GenerativeModel('gemini-pro')
 
 # Initialize Chroma with custom embedding function
 embedding_function = CohereEmbeddings()
-db = Chroma(persist_directory=CHROMA_PATH, embedding_function=embedding_function)
+index = faiss.IndexFlatL2(embedding_function.embed_documents([])[0].shape[0])  # Initialize an L2 (Euclidean) index
+# db = Chroma(persist_directory=CHROMA_PATH, embedding_function=embedding_function)
+docstore = InMemoryDocstore({})
+db = FAISS(index=index, embedding_function=embedding_function.embed_documents, docstore=docstore)
+
 
 # Streamlit UI
 st.title('StreetSmartKE🚸')
