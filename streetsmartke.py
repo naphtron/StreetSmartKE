@@ -64,7 +64,10 @@ if prompt := st.chat_input("Ask a question about traffic laws in Kenya:"):
         st.markdown(prompt)
 
     # Perform similarity search
-    results = db.similarity_search_with_relevance_scores(prompt, k=3)
+    # results = db.similarity_search_with_relevance_scores(prompt, k=3)
+    query_embedding = embedding_function.embed_query(prompt)
+    results = db.similarity_search(query_embedding, k=3)
+
 
     # Define prompt template
     PROMPT_TEMPLATE = """
