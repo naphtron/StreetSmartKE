@@ -1,5 +1,6 @@
 chromadb
 cohere
+faiss-cpu
 google-generativeai
 langchain-chroma>=0.1.2
 langchain-google-genai
