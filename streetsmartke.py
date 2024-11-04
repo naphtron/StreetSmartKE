@@ -42,7 +42,7 @@ embedding_dimension = len(embedding_function.embed_documents(sample_text)[0])
 index = faiss.IndexFlatL2(embedding_dimension)  # Initialize FAISS index with correct dimension
 # db = Chroma(persist_directory=CHROMA_PATH, embedding_function=embedding_function)
 docstore = InMemoryDocstore({})
-db = FAISS(index=index, embedding_function=embedding_function.embed_documents, docstore=docstore)
+db = FAISS(index=index, embedding_function=embedding_function.embed_documents, docstore=docstore, index_to_docstore_id={})
 
 
 # Streamlit UI
