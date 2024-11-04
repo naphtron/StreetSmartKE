@@ -3,6 +3,7 @@ cohere
 faiss-cpu
 google-generativeai
 langchain-chroma>=0.1.2
+langchain-community
 langchain-google-genai
 pillow
 pysqlite3-binary
