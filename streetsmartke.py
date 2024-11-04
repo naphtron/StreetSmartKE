@@ -37,7 +37,7 @@ llm = genai.GenerativeModel('gemini-pro')
 
 # Initialize Chroma with custom embedding function
 embedding_function = CohereEmbeddings()
-index = faiss.IndexFlatL2(embedding_function.embed_documents([])[0].shape[0])  # Initialize an L2 (Euclidean) index
+index = faiss.IndexFlatL2(768)  # Initialize an L2 (Euclidean) index
 # db = Chroma(persist_directory=CHROMA_PATH, embedding_function=embedding_function)
 docstore = InMemoryDocstore({})
 db = FAISS(index=index, embedding_function=embedding_function.embed_documents, docstore=docstore)
