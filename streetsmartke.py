@@ -1,7 +1,7 @@
 import cohere
 import streamlit as st
 import google.generativeai as genai
-from langchain.vectorstores.chroma import Chroma
+from langchain_chroma import Chroma
 from langchain.prompts import ChatPromptTemplate
 
 __import__('pysqlite3')
