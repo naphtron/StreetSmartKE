@@ -1,20 +1,15 @@
 import cohere
-import faiss
-from langchain_community.docstore.in_memory import InMemoryDocstore
-from langchain_community.vectorstores import FAISS
 import streamlit as st
 import google.generativeai as genai
-# from langchain_chroma import Chroma
+from langchain.vectorstores.chroma import Chroma
 from langchain.prompts import ChatPromptTemplate
-__import__('pysqlite3')
-# import sys
-# sys.modules['sqlite3'] = sys.modules.pop('pysqlite3')
+
 
 CHROMA_PATH = 'chroma_r'
 
 # Load API keys from Streamlit secrets
-cohere_key = st.secrets.cohere_key
-google_key = st.secrets.google_key
+cohere_key = st.secrets.credentials.cohere_key
+google_key = st.secrets.credentials.google_key
 
 #Configure GenAI 
 genai.configure(api_key = google_key)
@@ -36,14 +31,8 @@ class CohereEmbeddings:
 llm = genai.GenerativeModel('gemini-pro')
 
 # Initialize Chroma with custom embedding function
-sample_text = ["sample"]  # Sample input to get embedding dimension
 embedding_function = CohereEmbeddings()
-embedding_dimension = len(embedding_function.embed_documents(sample_text)[0])
-index = faiss.IndexFlatL2(embedding_dimension)  # Initialize FAISS index with correct dimension
-# db = Chroma(persist_directory=CHROMA_PATH, embedding_function=embedding_function)
-docstore = InMemoryDocstore({})
-db = FAISS(index=index, embedding_function=embedding_function.embed_documents, docstore=docstore, index_to_docstore_id={})
-
+db = Chroma(persist_directory=CHROMA_PATH, embedding_function=embedding_function)
 
 # Streamlit UI
 st.title('StreetSmartKE🚸')
@@ -64,10 +53,7 @@ if prompt := st.chat_input("Ask a question about traffic laws in Kenya:"):
         st.markdown(prompt)
 
     # Perform similarity search
-    # results = db.similarity_search_with_relevance_scores(prompt, k=3)
-    query_embedding = embedding_function.embed_query(prompt)
-    results = db.similarity_search(query_embedding, k=3)
-
+    results = db.similarity_search_with_relevance_scores(prompt, k=3)
 
     # Define prompt template
     PROMPT_TEMPLATE = """
@@ -79,10 +65,11 @@ You are an expert AI assistant. Answer the following question in detail, providi
 
 Given the above context, provide a detailed and comprehensive answer to the following question: {question}
 
+If the question is unrelated, please respond with: "I'm sorry, but I can only provide information related to road rules and regulations in Kenya. Please ask a relevant question." 
+
 However, if the question is a greeting or casual conversation starter (such as "Hello", "Hi", "Hey", "How are you?", "Good morning", and all the rest), please respond appropriately as a friendly assistant would.
 """
 
-# caveat = If the question is unrelated to road, please respond with: "I'm sorry, but I can only provide information related to road rules and regulations in Kenya. Please ask a relevant question." 
 
 
     if len(results) == 0:
