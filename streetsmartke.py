@@ -8,8 +8,8 @@ from langchain.prompts import ChatPromptTemplate
 CHROMA_PATH = 'chroma_r'
 
 # Load API keys from Streamlit secrets
-cohere_key = st.secrets.credentials.cohere_key
-google_key = st.secrets.credentials.google_key
+cohere_key = st.secrets.cohere_key
+google_key = st.secrets.google_key
 
 #Configure GenAI 
 genai.configure(api_key = google_key)
