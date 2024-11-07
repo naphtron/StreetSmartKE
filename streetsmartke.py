@@ -4,9 +4,9 @@ import google.generativeai as genai
 from langchain_chroma import Chroma
 from langchain.prompts import ChatPromptTemplate
 
-__import__('pysqlite3')
-import sys
-sys.modules['sqlite3'] = sys.modules.pop('pysqlite3')
+# __import__('pysqlite3')
+# import sys
+# sys.modules['sqlite3'] = sys.modules.pop('pysqlite3')
 
 CHROMA_PATH = 'chroma_r'
 
