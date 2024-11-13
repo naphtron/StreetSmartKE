@@ -89,7 +89,7 @@ Template Structure:
 
 {context}
 
-Based on the above context, answer the following question as thoroughly as possible: {question}
+ Given the above context, try to answer the following question: {question}
 """
 
 
