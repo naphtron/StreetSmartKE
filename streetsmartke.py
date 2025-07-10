@@ -31,7 +31,7 @@ class CohereEmbeddings:
     def embed_query(self, query):
         return self.embed_documents([query])[0]
     
-llm = genai.GenerativeModel('gemini-pro')
+llm = genai.GenerativeModel('gemini-2.0-flash')
 
 # Initialize Chroma with custom embedding function
 embedding_function = CohereEmbeddings()
